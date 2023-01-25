@@ -1,32 +1,29 @@
 import pygame
 import sys
 from Player import Player
-import random
+from Enemy import Enemy
 
 pygame.init()
 
 window = pygame.display.set_mode((500, 480))
-
-pygame.display.set_caption("Doodle Clone")
-
+pygame.display.set_caption("Jump !")
 clock = pygame.time.Clock()
 
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 
 def redraw_window():
     window.fill(BLACK)
-
+    test.move_left()
+    test.draw(window)
     player.move()
     player.draw(window)
-    
     pygame.display.update()
 
 
-player = Player(200, 400, 30, 30, RED)
-platforms = []
-
-
+player = Player(200, 400, 30, 30, GREEN)
+test = Enemy(300, 400, 30, 30, RED)
 
 run = True
 
@@ -39,10 +36,12 @@ while run:
             pygame.quit()
             sys.exit()
 
-    
-
     keys = pygame.key.get_pressed()
-
+    
+    if keys[pygame.K_ESCAPE]:
+        run = False
+        pygame.quit()
+        sys.exit()
     if keys[pygame.K_LEFT] and player.x > player.velocity:
         player.right = False
         player.left = True
@@ -54,9 +53,7 @@ while run:
 
     if not player.is_jumping:
 
-        if keys[pygame.K_SPACE]:
-          
-            print(player.bottom_edge[1])
+        if keys[pygame.K_SPACE]:          
             player.is_jumping = True
 
     else:
