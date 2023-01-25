@@ -2,7 +2,7 @@ import pygame
 
 
 class Enemy:
-    
+
     def __init__(self, x, y, width, height, color):
         self.x = x
         self.y = y
@@ -10,18 +10,16 @@ class Enemy:
         self.height = height
         self.color = color
         self.velocity = 5
-       
-       
+        self.collision = False
         self.hitbox = (self.x, self.y, self.width, self.height)
         self.bottom_edge = (self.x, self.y + self.height,
                             self.x + width, self.y)
-        
-        
-        
+
     def move_left(self):
         self.x -= self.velocity
-        
-       
+        if self.x < 0:
+            self.x = 500
+            self.collision = False
 
     def draw(self, window):
 
