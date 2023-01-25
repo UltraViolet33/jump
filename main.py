@@ -1,8 +1,6 @@
 import pygame
 import sys
 from Player import Player
-from Camera import *
-from Platform import Platform
 import random
 
 pygame.init()
@@ -21,19 +19,14 @@ def redraw_window():
 
     player.move()
     player.draw(window)
-    for platform in platforms:
-        # platform.move()
-        platform.draw(window)
+    
     pygame.display.update()
 
 
 player = Player(200, 400, 30, 30, RED)
 platforms = []
 
-for i in range(4):
-    x = random.randint(1, 400)
-    y = random.randint(100, 500)
-    platforms.append(Platform(x, y, 50, 5, (0, 255, 0)))
+
 
 run = True
 
@@ -46,17 +39,7 @@ while run:
             pygame.quit()
             sys.exit()
 
-    for platform in platforms:
-        if player.hitbox[1] + player.hitbox[3] > platform.hitbox[1] and player.hitbox[1] < platform.hitbox[1]:
-            if player.hitbox[0] > platform.hitbox[0] and player.hitbox[0] < platform.hitbox[0] + platform.hitbox[2]:
-                print('hi')
-                print(player.hitbox[0])
-                print(platform.hitbox[0] + platform.hitbox[2])
-                player.stop(platform.x, platform.y)
-
-        if player.on_platform:
-            if player.hitbox[0] > platform.hitbox[0] + platform.hitbox[2]:
-                player.is_falling = True
+    
 
     keys = pygame.key.get_pressed()
 
@@ -72,7 +55,7 @@ while run:
     if not player.is_jumping:
 
         if keys[pygame.K_SPACE]:
-            print(platforms[0].top_edge[1])
+          
             print(player.bottom_edge[1])
             player.is_jumping = True
 
